@@ -3,10 +3,10 @@ python main.py --train --dataset nyu_reduced --resolution mini --model unet_mt -
 
 Lightning support:
 - Inference:
-    python lightning_main_depth -b 1 -w 1 -e 1 -s full -mr inference -rd factor-1_ds-100 -du 100 -m unet_mt-b2 -clp mit_b2_model.pth
+    python lightning_main_depth.py -b 1 -w 1 -e 1 -s full -mr inference -rd output/unet_inception-resnet-v2 -du 100 -m unet_inception-resnet-v2 -clp depth/paper_models/base_model-unet_inception-resnet-v2_size-mini_ds-usage-100_batch-8_opt-0_scheduler-0_10_model.pth
 
 - Train:
-    python lightning_main_depth -b 8 -w 2 -e 10 -s mini -mr train -rd factor-1_ds-100 -du 100 -m unet_inception-resnet-v2
+    python lightning_main_depth.py -b 8 -w 2 -e 10 -s mini -mr train -rd factor-1_ds-100 -du 100 -m unet_inception-resnet-v2
 
 - Test:
-    python lightning_main_depth -b 1 -w 1 -e 1 -s mini -mr test -rd factor-1_ds-100 -du 100 -m unet_inception-resnet-v2
+    python lightning_main_depth.py -b 1 -w 1 -e 1 -s mini -mr test -rd factor-1_ds-100 -du 100 -m unet_inception-resnet-v2

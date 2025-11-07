@@ -9,13 +9,13 @@ from lightning.pytorch.loggers import TensorBoardLogger
 from torch import nn
 from torch.optim import Adam
 from torch.optim.lr_scheduler import StepLR
-from torchinfo import summary
 
 from depth.losses import DepthLoss
 from depth.model_loader import ModelLoader
 from depth.runners import run_test, run_train, run_inference
 from model import loader
 from model.coatnet.coatnet import register_smp_custom_encoders
+from model.util import show_model_summary
 from options.dataset_resolution import Resolutions
 from options.model import Models
 from options.task import Task
@@ -197,21 +197,9 @@ def main(
         optimizer = model_loader.optimizer
         scheduler = model_loader.scheduler
 
-    chance_to_freeze = 0.7
-    should_freeze = False
+    if show_summary:
+        show_model_summary(model, size)
 
-    def freeze(module: nn.Module):
-        for p in module.parameters():
-            p.requires_grad = not freeze
-
-    if show_summary and (mode_run == 'train' or (should_freeze and checkpoint_load_path)):
-        summary(
-            model=model,
-            input_size=(32, 3, 384, 384),
-            col_names=["input_size", "output_size", "num_params", "trainable"],
-            col_width=20,
-            row_settings=["var_names"]
-        )
     optimizer_used = len(optimizer.state) > 0
     scheduler_used = scheduler.last_epoch > 0
 
@@ -233,6 +221,7 @@ def main(
     auto_model_filename = '_'.join(model_filename_params + ['{epoch}'])
     model_filename = model_filename or auto_model_filename
     loggers = [TensorBoardLogger(log_root_path, name=log_last_dir)]
+    original_run_directory = run_directory
     run_directory = os.path.join('depth', run_directory)
 
     if mode_run == 'train':
@@ -250,9 +239,9 @@ def main(
         run_test(model, optimizer, scheduler, loggers, test_data_path, size)
 
     if mode_run == 'inference':
-        if not os.path.exists(f'results_{model_filename}'):
-            os.makedirs(f'results_{model_filename}')
-        run_inference(model, optimizer, scheduler, test_data_path, size, f'results_{model_filename}')
+        if not os.path.exists(original_run_directory):
+            os.makedirs(original_run_directory)
+        run_inference(model, optimizer, scheduler, test_data_path, size, original_run_directory)
 
     return None
 

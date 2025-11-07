@@ -12,6 +12,7 @@ class Encoders(Enum):
     MixedTransformerB3 = 'mt-b3'
     MixedTransformerB4 = 'mt-b4'
 
+    CoatSmall224 = 'coat-small_224'
     CoatLiteMedium224 = 'coat-lite-medium_224'
     CoatLiteMedium384 = 'coat-lite-medium_384'
     CoatNet2_224 = 'coatnet-2_224'
@@ -28,8 +29,11 @@ class Models(Enum):
     UNetPlusPlusInceptionResNetv2 = f'unet++_{Encoders.InceptionResNetV2}'
     UNetPlusPlusVGG19BN = f'unet++_{Encoders.VGG19BN}'
     UNetPlusPlusXception = f'unet++_{Encoders.Xception}'
+
+    UNetPlusPlusCoatSmall_224 = f'unet++_{Encoders.CoatSmall224}'
     UNetPlusPlusCoatLiteMedium_224 = f'unet++_{Encoders.CoatLiteMedium224}'
     UNetPlusPlusCoatLiteMedium_384 = f'unet++_{Encoders.CoatLiteMedium384}'
+
     UNetPlusPlusCoatNet2_224 = f'unet++_{Encoders.CoatNet2_224}'
     UNetPlusPlusCoatNet2_384 = f'unet++_{Encoders.CoatNet2_384}'
     UNetPlusPlusCoatNet3_224 = f'unet++_{Encoders.CoatNet3_224}'
@@ -40,8 +44,11 @@ class Models(Enum):
     UNetMixedTransformerB2 = f'unet_{Encoders.MixedTransformerB2}'
     UNetMixedTransformerB3 = f'unet_{Encoders.MixedTransformerB3}'
     UNetMixedTransformerB4 = f'unet_{Encoders.MixedTransformerB4}'
+
+    UNetCoatSmall_224 = f'unet_{Encoders.CoatSmall224}'
     UNetCoatLiteMedium_224 = f'unet_{Encoders.CoatLiteMedium224}'
     UNetCoatLiteMedium_384 = f'unet_{Encoders.CoatLiteMedium384}'
+
     UNetCoatNet2_224 = f'unet_{Encoders.CoatNet2_224}'
     UNetCoatNet2_384 = f'unet_{Encoders.CoatNet2_384}'
     UNetCoatNet3_224 = f'unet_{Encoders.CoatNet3_224}'

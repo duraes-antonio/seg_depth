@@ -89,7 +89,7 @@ class LightningSegmentationRunner(LightningModule):
     def validation_step(self, batch: Iterable[Tensor], batch_idx: int) -> STEP_OUTPUT:
         values = self.calculate_metrics(batch)
         values = {f'val_{k}': v for k, v in values.items()}
-        self.log_dict(values, on_step=False, on_epoch=True, prog_bar=False, logger=False)
+        self.log_dict(values, on_step=False, on_epoch=True, prog_bar=False, logger=True)
         return self.calculate_loss(batch)
 
     def configure_optimizers(self) -> Dict[str, Union[Optimizer, LRSchedulerPLType]]:
